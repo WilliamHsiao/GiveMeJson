@@ -27,8 +27,8 @@ class Main2Activity : AppCompatActivity() {
 
         val viewModel = ViewModelProvider(this).get(Main2ViewModel::class.java)
 
-        viewModel.json.observe(this, Observer {
-            picAdapter.setList(it)
+        viewModel.pic.observe(this, Observer {
+            picAdapter.add(it)
         })
 
     }

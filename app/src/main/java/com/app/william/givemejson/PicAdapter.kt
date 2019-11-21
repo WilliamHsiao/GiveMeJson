@@ -22,11 +22,10 @@ class PicAdapter : Adapter<PicAdapter.ViewHolder>() {
 
     }
 
-    fun setList(l: List<PicData>) {
+    fun add(l: PicData) {
 
-        list.clear()
-        list.addAll(l)
-        notifyDataSetChanged()
+        list.add(l)
+        notifyItemInserted(list.size-1)
     }
 
     override fun getItemCount(): Int {
@@ -41,7 +40,6 @@ class PicAdapter : Adapter<PicAdapter.ViewHolder>() {
 
         fun set(data: PicData) {
             binding.info = data
-            data.download()
             val lp: ViewGroup.LayoutParams = binding.layout.layoutParams
             if (lp is FlexboxLayoutManager.LayoutParams) {
                 val flexboxLp = binding.layout.layoutParams as FlexboxLayoutManager.LayoutParams

@@ -19,44 +19,19 @@ data class PicData(
     val title: String = "",
     private var _bitmap: Bitmap? = null
 ) : BaseObservable() {
-    private var disposable: Disposable? = null
-    private val single = Single.create(SingleOnSubscribe<Bitmap> { emitter ->
+    val single: Single<PicData> = Single.create { emitter ->
         try {
             val img = URL(author).content as InputStream
-            val bitmap = BitmapFactory.decodeStream(img)
-            emitter.onSuccess(bitmap)
+            this@PicData._bitmap= BitmapFactory.decodeStream(img)
+            emitter.onSuccess(this@PicData)
         } catch (e: Exception) {
             emitter.onError(e)
-        }
-    })
-
-    fun download() {
-
-        if (disposable == null) {
-
-            single.subscribeOn(Schedulers.io())
-                .subscribe(object : SingleObserver<Bitmap> {
-                    override fun onSuccess(t: Bitmap) {
-                        bitmap = t
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-                        disposable = d
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.e("PicData", "download", e)
-                    }
-
-
-                })
         }
     }
 
     var bitmap: Bitmap?
         @Bindable get() = _bitmap
         set(value) {
-
             _bitmap = value
             notifyPropertyChanged(BR.bitmap)
         }
