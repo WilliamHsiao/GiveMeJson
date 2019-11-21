@@ -2,14 +2,9 @@ package com.app.william.givemejson
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import io.reactivex.Single
-import io.reactivex.SingleObserver
-import io.reactivex.SingleOnSubscribe
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import java.io.InputStream
 import java.net.URL
 
